@@ -1,29 +1,42 @@
 import { getCSS } from "./comum.js";
+import { tickfont } from "./comum.js";
 
-async function quantidadeDeUsuarios(){
-const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/numero-usuarios.json'
-const resultado = await fetch(url);
-const dados = await resultado.json();
-const nomeDasRedes = Object.keys(dados);
-const quantidadeDeUsuarios = Object.values(dados);
+async function quantidadeusuarios(){
+    const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/numero-usuarios.json'
+    const resultado = await fetch(url);
+    const dados = await resultado.json();
+    const nomeredes = Object.keys(dados);
+    const quantidadeusuarios = Object.values(dados);
 
-const infos = [
-    {
-        x: nomeDasRedes,
-        y: quantidadeDeUsuarios,
-        type: 'bar',
-        marker: {
-            color: getCSS('--cor-primaria')
+
+    const infos = [
+        {
+            x: nomeredes,
+            y: quantidadeusuarios,
+            type: 'bar', 
+            marker: {
+                color: getCSS('--cor-primaria')
+            }
+        }
+    ]
+    const layout = {
+        plot_bgcolor: getCSS('--cor-de-fundo'),
+        paper_bgcolor: getCSS('--cor-de-fundo'),
+        title: {
+            text: 'Redes sociais com mais usuarios no mundo',
+            x: 0, // Coloco o titulo mais a esquerda,
+            font:{
+                color: getCSS('--cor-primaria'),
+                family: getCSS ('--fonte'),
+                size: 30
+            }
         }
     }
-]
-const layout = {
-    plot_bgcolor: getCSS('--cor-de -fundo'),
-    papper_bgcolor: getCSS('--cor-de -fundo')
-}
-const grafico = document.createElement('div');
-grafico.className = 'grafico';
-document.getElementById('graficos-container').appendChild(grafico);
-Plotly.newPlot(grafico,infos,layout)
-}
-quantidadeDeUsuarios()
+
+    const grafico = document.createElement('div');
+    grafico.className = 'grafico'
+    document.getElementById('graficos-container').appendChild(grafico);
+    Plotly.newPlot(grafico,infos,layout)
+} 
+
+quantidadeusuarios()
